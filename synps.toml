@@ -7,7 +7,11 @@ description = "Port do Qwen3.5-2B: texto, imagem, tokenizer BPE e geracao em str
 package = "qwen3.5"
 
 [dependencies]
-quantizations = { git = "https://github.com/useplx/Quantizations.git", version = "v1.0.0" }
+f16 = { git = "https://github.com/useplx/Quantizations.git", version = "v1.0.0", subdir = "F16" }
+f32 = { git = "https://github.com/useplx/Quantizations.git", version = "v1.0.0", subdir = "F32" }
+bf16 = { git = "https://github.com/useplx/Quantizations.git", version = "v1.0.0", subdir = "BF16" }
+q4k = { git = "https://github.com/useplx/Quantizations.git", version = "v1.0.0", subdir = "Q4K" }
+q8 = { git = "https://github.com/useplx/Quantizations.git", version = "v1.0.0", subdir = "Q8" }
 
 [myelin]
 formats = ["f32", "bf16"]

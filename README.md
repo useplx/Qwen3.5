@@ -52,7 +52,6 @@ Weights and tokenizer assets are not distributed by this repository.
 ```toml
 [dependencies]
 "qwen3.5" = { git = "https://github.com/useplx/Qwen3_VL.git", version = "v1.0.0" }
-quantizations = { git = "https://github.com/useplx/Quantizations.git", version = "v1.0.0" }
 
 [packages."qwen3.5"]
 context = 1024
