@@ -17,7 +17,7 @@ jobs:
         steps:
             - uses: actions/checkout@v4
               with:
-                  path: Qwen3_VL
+                  path: Qwen3.5
             - uses: actions/checkout@v4
               with:
                   repository: useplx/SYNaPSe
@@ -41,5 +41,5 @@ jobs:
                     -DPLEX_QUANTIZATIONS_ROOT=${{ github.workspace }}/Quantizations
                   cmake --build synps-build --target synps --parallel 1
             - name: Validate package graph
-              working-directory: Qwen3_VL
+              working-directory: Qwen3.5
               run: ../synps-build/synps graph

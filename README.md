@@ -51,7 +51,7 @@ Weights and tokenizer assets are not distributed by this repository.
 
 ```toml
 [dependencies]
-"qwen3.5" = { git = "https://github.com/useplx/Qwen3_VL.git", version = "v1.0.0" }
+"qwen3.5" = { git = "https://github.com/useplx/Qwen3.5.git", version = "v1.0.0" }
 
 [packages."qwen3.5"]
 context = 1024
@@ -85,7 +85,7 @@ name = "assistant"
 package = "qwen"
 
 [dependencies]
-qwen = { git = "https://github.com/useplx/Qwen3_VL.git", version = "v1.0.0" }
+qwen = { git = "https://github.com/useplx/Qwen3.5.git", version = "v1.0.0" }
 ```
 
 ## Public entrypoint
@@ -97,15 +97,15 @@ A standalone dependency exposes the package entrypoint declared by Qwen3.5:
 package = "qwen3.5"
 ```
 
-The public input may be UTF-8 prompt text or `Qwen3VL::Input`. Output is emitted
+The public input may be UTF-8 prompt text or `Qwen35::Input`. Output is emitted
 incrementally as UTF-8 and completes with the generated response.
 
 ```cpp
-Qwen3VL::Input request{.content = {
-    Qwen3VL::Text{"Compare these images: "},
-    Qwen3VL::Image{first_encoded_image},
-    Qwen3VL::Text{" and "},
-    Qwen3VL::Image{second_encoded_image},
+Qwen35::Input request{.content = {
+    Qwen35::Text{"Compare these images: "},
+    Qwen35::Image{first_encoded_image},
+    Qwen35::Text{" and "},
+    Qwen35::Image{second_encoded_image},
 }};
 
 session.invoke(

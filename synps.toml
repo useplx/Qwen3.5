@@ -69,30 +69,30 @@ format = "q4k"
 path = "checkpoints/Qwen3.5-2B/model.safetensors-00001-of-00001.safetensors"
 
 [build.graph]
-namespace = "qwen3vl"
+namespace = "qwen35"
 toolchain = "cpp"
 sources = [
-    "src/qwen3_vl/package.cpp",
-    "src/qwen3_vl/nn",
+    "src/qwen3_5/package.cpp",
+    "src/qwen3_5/nn",
 ]
 exports = ["decoder", "prefill"]
 
 [build.orchestration]
 toolchain = "cpp"
 sources = [
-    "src/qwen3_vl/entrypoint.cpp",
-    "src/qwen3_vl/orchestration.cpp",
-    "src/qwen3_vl/model.cpp",
-    "src/qwen3_vl/rope.cpp",
-    "src/qwen3_vl/nn",
+    "src/qwen3_5/entrypoint.cpp",
+    "src/qwen3_5/orchestration.cpp",
+    "src/qwen3_5/model.cpp",
+    "src/qwen3_5/rope.cpp",
+    "src/qwen3_5/nn",
 ]
 
 [build.native]
 toolchain = "cpp"
 sources = [
-    "src/qwen3_vl/tokenizer_native.cpp",
-    "src/qwen3_vl/tokenizer.cpp",
-    "src/qwen3_vl/vision_native.cpp",
+    "src/qwen3_5/tokenizer_native.cpp",
+    "src/qwen3_5/tokenizer.cpp",
+    "src/qwen3_5/vision_native.cpp",
 ]
 includes = ["=/usr/include/opencv4"]
 libraries = [
@@ -107,14 +107,14 @@ libraries = [
 provides = ["generator", "multimodal-generator"]
 
 [package.variables]
-context = { type = "uint32", default = 1024, define = "QWEN3VL_MAX_SEQ_LEN" }
-max_new_tokens = { type = "uint32", default = 384, define = "QWEN3VL_MAX_NEW_TOKENS" }
-prefill_chunk = { type = "uint32", default = 64, define = "QWEN3VL_PREFILL_CHUNK" }
-prefill_min_chunk = { type = "uint32", default = 2, define = "QWEN3VL_PREFILL_MIN_CHUNK" }
-vision_max_patches = { type = "uint32", default = 2048, define = "QWEN3VL_VISION_MAX_PATCHES" }
-do_sample = { type = "bool", default = false, define = "QWEN3VL_DO_SAMPLE" }
-top_k = { type = "uint32", default = 20, define = "QWEN3VL_TOP_K" }
-top_p = { type = "float", default = 0.8, define = "QWEN3VL_TOP_P" }
-temperature = { type = "float", default = 0.7, define = "QWEN3VL_TEMPERATURE" }
-repetition_penalty = { type = "float", default = 1.0, define = "QWEN3VL_REPETITION_PENALTY" }
-presence_penalty = { type = "float", default = 0.0, define = "QWEN3VL_PRESENCE_PENALTY" }
+context = { type = "uint32", default = 1024, define = "QWEN35_MAX_SEQ_LEN" }
+max_new_tokens = { type = "uint32", default = 384, define = "QWEN35_MAX_NEW_TOKENS" }
+prefill_chunk = { type = "uint32", default = 64, define = "QWEN35_PREFILL_CHUNK" }
+prefill_min_chunk = { type = "uint32", default = 2, define = "QWEN35_PREFILL_MIN_CHUNK" }
+vision_max_patches = { type = "uint32", default = 2048, define = "QWEN35_VISION_MAX_PATCHES" }
+do_sample = { type = "bool", default = false, define = "QWEN35_DO_SAMPLE" }
+top_k = { type = "uint32", default = 20, define = "QWEN35_TOP_K" }
+top_p = { type = "float", default = 0.8, define = "QWEN35_TOP_P" }
+temperature = { type = "float", default = 0.7, define = "QWEN35_TEMPERATURE" }
+repetition_penalty = { type = "float", default = 1.0, define = "QWEN35_REPETITION_PENALTY" }
+presence_penalty = { type = "float", default = 0.0, define = "QWEN35_PRESENCE_PENALTY" }
