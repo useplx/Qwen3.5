@@ -1,0 +1,45 @@
+name: CI
+
+on:
+    push:
+    pull_request:
+    workflow_dispatch:
+
+permissions:
+    contents: read
+
+jobs:
+    manifest:
+        runs-on: ubuntu-24.04
+        env:
+            CC: gcc-14
+            CXX: g++-14
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                  path: Qwen3_VL
+            - uses: actions/checkout@v4
+              with:
+                  repository: useplx/SYNaPSe
+                  path: SYNaPSe
+            - uses: actions/checkout@v4
+              with:
+                  repository: useplx/MyeLiN
+                  path: MyeLiN
+                  submodules: recursive
+            - uses: actions/checkout@v4
+              with:
+                  repository: useplx/Quantizations
+                  path: Quantizations
+            - name: Install build tools
+              run: sudo apt-get update && sudo apt-get install -y gcc-14 g++-14 ninja-build
+            - name: Build SYNaPSe
+              run: |
+                  cmake -S SYNaPSe -B synps-build -G Ninja \
+                    -DCMAKE_BUILD_TYPE=Release \
+                    -DMLN_ROOT=${{ github.workspace }}/MyeLiN \
+                    -DPLEX_QUANTIZATIONS_ROOT=${{ github.workspace }}/Quantizations
+                  cmake --build synps-build --target synps --parallel 1
+            - name: Validate package graph
+              working-directory: Qwen3_VL
+              run: ../synps-build/synps graph
