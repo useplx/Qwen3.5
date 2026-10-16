@@ -1,0 +1,24 @@
+[interface]
+name = "generator"
+version = "1.0.0"
+entrypoint = "qwen3.5"
+output = "stream<string>"
+
+[types.request]
+kind = "record"
+fields = [{ name = "content", type = "list<content>" }]
+
+[types.content]
+kind = "variant"
+cases = [
+    { name = "text", type = "string" },
+    { name = "image", type = "bytes" },
+    { name = "video", type = "video" },
+]
+
+[types.video]
+kind = "record"
+fields = [
+    { name = "frames", type = "list<bytes>" },
+    { name = "frames_per_second", type = "float32" },
+]

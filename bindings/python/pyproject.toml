@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qwen35-interface"
+version = "1.0.0"
+description = "Typed Python interface for the PLeX Qwen3.5 package"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+
+[tool.setuptools.packages.find]
+where = ["src"]

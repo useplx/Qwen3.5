@@ -33,8 +33,9 @@ The package publishes the `generator` and `multimodal-generator` capabilities.
 This package does not produce a standalone `.mln`. A consuming application must
 provide weights, assets, deployment policies, and a public entrypoint.
 
-Generator integration is published through the manifest capability and does
-not require a separate interface package.
+Generator integration is published through the manifest capability. Typed
+bindings are package-owned and optional; the MyeLiN runtime contains no
+Qwen-specific types.
 
 ## Requirements
 
@@ -97,27 +98,26 @@ A standalone dependency exposes the package entrypoint declared by Qwen3.5:
 package = "qwen3.5"
 ```
 
-The public input may be UTF-8 prompt text or `Qwen35::Input`. Output is emitted
-incrementally as UTF-8 and completes with the generated response.
+The public input may be UTF-8 prompt text or the request declared in
+`interface.toml`. Output is emitted incrementally as UTF-8 and completes with
+the generated response. C++ consumers can use the package header; Python
+consumers can install the independent binding:
 
-```cpp
-Qwen35::Input request{.content = {
-    Qwen35::Text{"Compare these images: "},
-    Qwen35::Image{first_encoded_image},
-    Qwen35::Text{" and "},
-    Qwen35::Image{second_encoded_image},
-}};
-
-session.invoke(
-    "qwen3.5",
-    request,
-    [](std::string text) {
-        std::print("{}", text);
-    });
+```bash
+python -m pip install \
+  "qwen35-interface @ git+https://github.com/useplx/Qwen3.5.git@v1.0.0#subdirectory=bindings/python"
 ```
 
-Argument serialization is selected automatically from the input type. There is
-no public encode or decode call.
+```cpp
+from qwen35 import Input
+
+request = Input.text("Describe the input")
+for chunk in session.stream(request.encode()):
+    print(chunk.decode("utf-8"), end="")
+```
+
+The binding contains only generated-style data types and encoding. It does not
+link the model implementation into the application or runtime.
 
 ## Configuration
 
